@@ -27,13 +27,6 @@
             android:padding="8dp" />
 
         <EditText
-            android:id="@+id/alter_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="e-mail"
-            android:padding="8dp" />
-
-        <EditText
             android:id="@+id/alter_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

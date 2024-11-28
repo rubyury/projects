@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String databaseName = "StarBell.db";
@@ -38,7 +40,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = MyDatabase.insert("users", null, contentValues);
 
         if (result == -1) {
-            MyDatabase.close();
             return false;
         } else {
             return true;
@@ -76,6 +77,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("Select * from users where email = ? ", new String[]{email});
         return cursor;
+    }
+
+    public ArrayList<String> getAllUsernames() {
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        ArrayList<String> usernames = new ArrayList<>();
+
+        Cursor cursor = myDB.rawQuery("SELECT user FROM users", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String username = cursor.getString(cursor.getColumnIndexOrThrow("user"));
+                usernames.add(username);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return usernames;
+    }
+
+    public String reviewUser(String username) {
+        SQLiteDatabase myDB = this.getReadableDatabase();
+        String password = null;
+
+        Cursor cursor = myDB.rawQuery(
+                "select * from users where username = ?", new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+        }
+        cursor.close();
+        return password;
+    }
+
+
+    public boolean updateUserPwd(String email, String newPassword) {
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("password", newPassword);
+
+        int rowsAffected = myDB.update("users", values, "email = ?", new String[]{email});
+        if (rowsAffected > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updateUserName(String email, String newUsername) {
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("user", newUsername);
+
+        int rowsAffected = myDB.update("users", values, "email = ?", new String[]{email});
+        return rowsAffected > 0;
+    }
+
+
+    public boolean deleteUser(String user) {
+        SQLiteDatabase myDB = this.getWritableDatabase();
+
+        Cursor cursor = myDB.rawQuery("SELECT * FROM users WHERE username = ?", new String[]{user});
+        if (cursor.getCount() > 0) {
+            cursor.close();
+
+            int rowsAffected = myDB.delete("users", "user=?", new String[]{user});
+            return rowsAffected > 0;
+        } else {
+            cursor.close();
+            return false;
+        }
     }
 
 }
