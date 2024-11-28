@@ -43,7 +43,7 @@ public class LogIn extends Fragment {
                     if(checkCredentials == true){
                         Toast.makeText(view.getContext(), "EXITO", Toast.LENGTH_SHORT).show();
                         MainActivity mainActivity = (MainActivity) getActivity();
-                        mainActivity.replaceFragment(new UserPage());
+                        mainActivity.replaceFragment(new UserPage(email));
                     }else{
                         Toast.makeText(view.getContext(), "datos invalidos", Toast.LENGTH_SHORT).show();
                     }

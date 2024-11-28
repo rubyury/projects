@@ -16,6 +16,11 @@ public class UserPage extends Fragment {
     DatabaseHelper helper;
     Cursor cursor;
     TextView txt1, txt2;
+    public String email;
+
+    public UserPage(String email){
+        this.email = email;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,7 +31,7 @@ public class UserPage extends Fragment {
         txt2 = (TextView) view.findViewById(R.id.txt2);
 
         helper = new DatabaseHelper(view.getContext());
-        cursor = helper.getUser();
+        cursor = helper.getUser(email);
 
         if (cursor.getCount() == 0){
             Toast.makeText(view.getContext(), "no hay datos", Toast.LENGTH_SHORT).show();

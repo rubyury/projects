@@ -51,7 +51,8 @@ public class Register extends Fragment {
                             if (insert == true) {
                                 Toast.makeText(view.getContext(), "INGRESO EXITOSO", Toast.LENGTH_SHORT).show();
                                 MainActivity mainActivity = (MainActivity) getActivity();
-                                mainActivity.replaceFragment(new UserPage());
+                                mainActivity.replaceFragment(new UserPage(email));
+
                             } else {
                                 Toast.makeText(view.getContext(), "ingreso fallido", Toast.LENGTH_SHORT).show();
                             }
