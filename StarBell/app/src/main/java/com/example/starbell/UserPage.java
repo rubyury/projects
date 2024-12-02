@@ -18,7 +18,7 @@ public class UserPage extends Fragment {
     Cursor cursor;
     TextView txt1, txt2, txt3;
     public String email;
-    Button btn1;
+    Button btn1, btn2, btn3, btn4;
 
     public UserPage(String email){
         this.email = email;
@@ -52,6 +52,43 @@ public class UserPage extends Fragment {
             public void onClick(View view) {
                 MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.replaceFragment(new AlterData(email));
+            }
+        });
+
+        btn2 = (Button) view.findViewById(R.id.btn2);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.setMenuEnabled(false);
+                mainActivity.replaceFragment(new DeleteUsers(email));
+            }
+        });
+
+        btn3 = (Button) view.findViewById(R.id.btn3);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (helper.deleteUser(email)){
+                    Toast.makeText(view.getContext(), "Usuario eliminado", Toast.LENGTH_SHORT).show();
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.setMenuEnabled(false);
+                    mainActivity.setEmail("");
+                    mainActivity.replaceFragment(new Principal());
+                } else {
+                    Toast.makeText(view.getContext(), "algo a salido mal",  Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btn4 = (Button) view.findViewById(R.id.btn4);
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.setMenuEnabled(false);
+                mainActivity.setEmail("");
+                mainActivity.replaceFragment(new Principal());
             }
         });
 

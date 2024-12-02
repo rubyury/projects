@@ -47,10 +47,12 @@ public class Register extends Fragment {
                     if (password.equals(confirmPassword)) {
                         Boolean checkUser = helper.checkUser(email);
                         if (checkUser == false) {
-                            Boolean insert = helper.insertData(email, user, password);
+                            Boolean insert = helper.insertUser(email, user, password);
                             if (insert == true) {
                                 Toast.makeText(view.getContext(), "INGRESO EXITOSO", Toast.LENGTH_SHORT).show();
                                 MainActivity mainActivity = (MainActivity) getActivity();
+                                mainActivity.setEmail(email);
+                                mainActivity.setMenuEnabled(true);
                                 mainActivity.replaceFragment(new UserPage(email));
 
                             } else {

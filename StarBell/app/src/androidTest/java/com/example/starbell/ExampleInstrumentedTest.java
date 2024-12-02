@@ -22,5 +22,10 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.starbell", appContext.getPackageName());
+
+        DatabaseHelper helper = new DatabaseHelper(appContext);
+        Boolean insert = helper.insertNotification("hola", "nose", 1, 1, 1, "nose", "nose");
+
+
     }
 }
