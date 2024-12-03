@@ -32,23 +32,32 @@ public class LogIn extends Fragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    String email = edit1.getText().toString();
+                    String password = edit2.getText().toString();
 
-                String email = edit1.getText().toString();
-                String password = edit2.getText().toString();
-
-                if(email.equals("")||password.equals(""))
-                    Toast.makeText(view.getContext(), "llena todos los campos", Toast.LENGTH_SHORT).show();
-                else{
-                    Boolean checkCredentials =  helper.checkUserPassword(email, password);
-                    if(checkCredentials == true){
-                        Toast.makeText(view.getContext(), "EXITO", Toast.LENGTH_SHORT).show();
-                        MainActivity mainActivity = (MainActivity) getActivity();
-                        mainActivity.setEmail(email);
-                        mainActivity.setMenuEnabled(true);
-                        mainActivity.replaceFragment(new UserPage(email));
-                    }else{
-                        Toast.makeText(view.getContext(), "datos invalidos", Toast.LENGTH_SHORT).show();
+                    if (email.isEmpty() || password.isEmpty()) {
+                        Toast.makeText(view.getContext(), "Llena todos los campos", Toast.LENGTH_SHORT).show();
+                        return;
                     }
+
+                    Boolean checkCredentials = helper.checkUserPassword(email, password);
+
+                    if (checkCredentials) {
+                        Toast.makeText(view.getContext(), "ÉXITO", Toast.LENGTH_SHORT).show();
+
+                        MainActivity mainActivity = (MainActivity) getActivity();
+                        if (mainActivity != null) {
+                            mainActivity.setEmail(email);
+                            mainActivity.setMenuEnabled(true);
+                            mainActivity.replaceFragment(new UserPage(email));
+                        }
+                    } else {
+                        Toast.makeText(view.getContext(), "Datos inválidos", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(view.getContext(), "Ocurrió un error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
             }
         });

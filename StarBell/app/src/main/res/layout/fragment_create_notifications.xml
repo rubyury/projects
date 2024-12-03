@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1C1C1C"
     tools:context=".CreateNotifications">
 
     <ScrollView
@@ -14,48 +15,67 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:background="#2E2E2E"
+            android:clipToOutline="true"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:padding="10dp">
 
+            <!-- Título -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/title_background"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="NUEVA NOTIFICACION"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:text="CREAR NUEVA NOTIFICACIÓN"
+                android:textColor="#FFFFFF"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
+                android:textStyle="bold" />
 
+            <!-- Campo de Nombre -->
             <EditText
                 android:id="@+id/name_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre de la Notificación"
+                android:hint="Nombre"
+                android:background="@drawable/edittext_background"
                 android:padding="12dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="12dp"
+                android:textColorHint="#CCCCCC"
+                android:textColor="#FFFFFF" />
 
+            <!-- Campo de Descripción -->
             <EditText
                 android:id="@+id/description_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Descripción"
+                android:hint="Descripcion"
+                android:background="@drawable/edittext_background"
                 android:padding="12dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:textColorHint="#CCCCCC"
+                android:textColor="#FFFFFF" />
 
+            <!-- Selector de Horas y Minutos -->
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Repedir cada:"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="8dp" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:text="Repetir"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_marginBottom="16dp">
 
                 <Spinner
@@ -63,6 +83,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/spinner_background"
                     android:padding="8dp" />
 
                 <Spinner
@@ -70,68 +91,80 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/spinner_background"
                     android:padding="8dp" />
             </LinearLayout>
 
+            <!-- Grupo de Radiobuttons para Vibrar -->
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vibrar"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="8dp" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:text="VIBRAR"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal">
 
                 <RadioButton
                     android:id="@+id/radioButtonAM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SI" />
+                    android:buttonTint="#FFFFFF"
+                    android:text="SI"
+                    android:textColor="#FFFFFF" />
 
                 <RadioButton
                     android:id="@+id/radioButtonPM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NO" />
+                    android:buttonTint="#FFFFFF"
+                    android:text="NO"
+                    android:textColor="#FFFFFF" />
             </RadioGroup>
 
+            <!-- Lista de Días -->
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Selecciona los días:"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="8dp" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:text="DIAS"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <ListView
                 android:id="@+id/listViewDays"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:divider="@android:color/darker_gray"
-                android:dividerHeight="1dp" />
+                android:divider="#FFFFFF"
+                android:dividerHeight="1dp"
+                android:background="#4D4D4D" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Botón Crear -->
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="16dp">
-
-                <Button
-                    android:id="@+id/btnConfirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CONFIRMAR"
-                    android:layout_marginEnd="16dp" />
-
-            </LinearLayout>
-
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#FF5733"
+                android:elevation="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="12dp"
+                android:text="CREAR"
+                android:textColor="#000000" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

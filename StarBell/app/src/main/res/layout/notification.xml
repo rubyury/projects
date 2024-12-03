@@ -2,44 +2,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="#4A4A4A"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="8dp"
+    android:layout_marginHorizontal="4dp"
+    android:elevation="4dp"
+    android:clipToPadding="false">
 
     <TextView
-        android:id="@+id/noti_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="hola"
-        android:textSize="20dp" />
+        android:id="@+id/notiNumber"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/circle_background"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/noti_name"
+            android:id="@+id/notiName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hola"
-            android:textSize="20dp" />
+            android:text="NOMBRE"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
 
         <TextView
-            android:id="@+id/noti_description"
+            android:id="@+id/notiDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="hola"
-            android:textSize="20dp" />
+            android:text="descripcion"
+            android:textColor="#CCCCCC"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
 
         <TextView
-            android:id="@+id/noti_info"
+            android:id="@+id/notiTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="hola"
-            android:textSize="20dp" />
+            android:text="2 horas | 15 minutos"
+            android:textColor="#CCCCCC"
+            android:textSize="12sp" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#3C77F0"
+            android:text="ALTERAR"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="4dp" />
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF4D4D"
+            android:text="BORRAR"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="4dp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -5,16 +5,16 @@
     <item
         android:id="@+id/navUser"
         android:icon="@drawable/person"
-        android:title="USER" />
+        android:title="" />
 
     <item
         android:id="@+id/navNotifications"
         android:icon="@drawable/notification"
-        android:title="NOTIFICACIONES" />
+        android:title="" />
 
     <item
         android:id="@+id/navAdd"
         android:icon="@drawable/add"
-        android:title="ADd" />
+        android:title="" />
 
 </menu>

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Notifications extends Fragment{
 
     ListView list;
-    ArrayList<User> users;
+    ArrayList<Notification> notifications;
     DatabaseHelper helper;
     public String email;
 
@@ -28,6 +28,14 @@ public class Notifications extends Fragment{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
 
+        list = view.findViewById(R.id.listNoti);
+
+        helper = new DatabaseHelper(view.getContext());
+        notifications = helper.getAllNotifications(email);
+
+        AdapterNoti adapter = new AdapterNoti(view.getContext(), notifications);
+
+        list.setAdapter(adapter);
 
         return view;
     }

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CreateNotifications extends Fragment {
@@ -58,6 +60,7 @@ public class CreateNotifications extends Fragment {
         minuteSpinner.setEnabled(false);
 
         ArrayList<String> hoursList = new ArrayList<>();
+        hoursList.add("");
         for (int i = 0; i <= 24; i++) {
             hoursList.add(String.valueOf(i));
         }
@@ -75,6 +78,7 @@ public class CreateNotifications extends Fragment {
                 minuteSpinner.setEnabled(true);
 
                 ArrayList<String> minutesList = new ArrayList<>();
+                minutesList.add("");
                 if (selectedHour.equals("13")) {
                     minutesList.add("Eres");
                     minutesList.add("Real?");
@@ -109,33 +113,66 @@ public class CreateNotifications extends Fragment {
 
 
         btnConfirm.setOnClickListener(v -> {
+            try {
+                String name = nameEdit.getText().toString();
+                String description = descriptionEdit.getText().toString();
+                String hour = hourSpinner.getSelectedItem().toString();
+                String minute = minuteSpinner.getSelectedItem().toString();
+                int radio = vibrationGroup.getCheckedRadioButtonId() == R.id.radioButtonAM ? 1 : 0;
 
-            String name = nameEdit.getText().toString();
-            String description = descriptionEdit.getText().toString();
-
-            String hour = minuteSpinner.getSelectedItem().toString();
-
-            String minute = minuteSpinner.getSelectedItem().toString();
-
-            StringBuilder selectedDays = new StringBuilder("Días seleccionados:\n");
-            for (DayItem day : dayList) {
-                if (day.isChecked()) {
-                    selectedDays.append(day.getDayName()).append("\n");
+                ArrayList<String>days = new ArrayList<>();
+                for (DayItem day : dayList) {
+                    if (day.isChecked()) {
+                        days.add(day.getDayName());
+                    } else {
+                        days.add("");
+                    }
                 }
-            }
-            Toast.makeText(getContext(), selectedDays.toString(), Toast.LENGTH_SHORT).show();
 
-            helper = new DatabaseHelper(view.getContext());
-
-            if (name.equals("") || hour.equals("") || minute.equals(""))
-                Toast.makeText(view.getContext(), "llena todos los campos requeridos", Toast.LENGTH_SHORT).show();
-            else {
-                Boolean insert = helper.insertNotification(name, description, 1, 1, 1, "nose", email);
-                if (insert == true) {
-                    Toast.makeText(view.getContext(), "CREACION EXITOSA", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(view.getContext(), "creacion Fallida", Toast.LENGTH_SHORT).show();
+                if (name.isEmpty() || hour.isEmpty() || minute.isEmpty()) {
+                    Toast.makeText(getContext(), "Llena todos los campos requeridos", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                helper = new DatabaseHelper(v.getContext());
+
+                try {
+                    Boolean insertNotification = helper.insertNotification(
+                            name,
+                            description,
+                            Integer.parseInt(hour),
+                            Integer.parseInt(minute),
+                            radio,
+                            "si",
+                            email
+                    );
+
+                    if (insertNotification) {
+                        Toast.makeText(getContext(), "CREACIÓN EXITOSA", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Creación Fallida", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Error al insertar notificación: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+
+                try {
+
+                    Boolean insertDay = helper.insertDay(days, name);
+
+                    if (!insertDay) {
+                        Toast.makeText(getContext(), "Error al insertar día:", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Error al insertar días: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "Ocurrió un error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
             }
         });
 

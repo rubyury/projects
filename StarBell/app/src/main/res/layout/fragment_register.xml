@@ -3,65 +3,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#121212"
     tools:context=".Register">
 
+    <!-- Contenedor del formulario -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#2E2E2E"
+        android:clipToOutline="true"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:padding="20dp">
 
+        <!-- Título del formulario -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20pt"
+            android:layout_marginBottom="16dp"
+            android:background="#2E2E2E"
+            android:backgroundTint="#CAC19A"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
             android:text="REGISTRO"
-            android:textSize="30dp" />
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/user_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="usuario"
-            android:padding="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="#FFFFFF"
+            android:hint="Nombre de usuario"
+            android:padding="12dp"
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e-mail"
-            android:padding="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="#FFFFFF"
+            android:hint="E-mail"
+            android:padding="12dp"
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/pass_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="contrasena"
-            android:padding="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="#FFFFFF"
+            android:hint="Contraseña"
+            android:padding="12dp"
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/pass2_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="confirmar contrasena"
-            android:padding="8dp" />
+            android:layout_marginBottom="16dp"
+            android:background="#FFFFFF"
+            android:hint="Confirmar contraseña"
+            android:padding="12dp"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/btn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10pt"
-            android:text="GUARDAR" />
+            android:backgroundTint="#FF33EE"
+            android:elevation="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="12dp"
+            android:text="GUARDAR"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/btn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10pt"
-            android:text="REGRESAR" />
-
+            android:backgroundTint="#FF5733"
+            android:elevation="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="12dp"
+            android:text="CANCELAR"
+            android:textColor="#000000" />
     </LinearLayout>
+
 </FrameLayout>

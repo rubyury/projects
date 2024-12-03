@@ -46,10 +46,11 @@ public class DeleteUsers extends Fragment {
         Adapter adapter = new Adapter(view.getContext(), users);
 
         list.setAdapter(adapter);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.setMenuEnabled(false);
 
         btn1.setOnClickListener(v -> {
 
-            MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.setMenuEnabled(true);
             mainActivity.replaceFragment(new UserPage(email));
 

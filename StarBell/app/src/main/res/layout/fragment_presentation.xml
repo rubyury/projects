@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation">
+    android:background="#121212">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hola" />
+            android:text="BELLSTAR"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:fontFamily="sans-serif-black"
+            android:shadowColor="#FF5733"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:layout_marginBottom="20dp" />
 
         <Button
             android:id="@+id/home_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="INICIAR" />
+            android:text="INICIO"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:backgroundTint="#FF5733"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:elevation="6dp"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
-
 </FrameLayout>

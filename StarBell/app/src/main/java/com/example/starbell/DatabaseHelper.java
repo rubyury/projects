@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String databaseName = "StarBell.db";
+    public static final String databaseName = "StarBelle.db";
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, databaseName, null, 1);
+        super(context, databaseName, null, 2);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(email) REFERENCES users(email) ON DELETE CASCADE)");
 
         db.execSQL("CREATE TABLE days (" +
-                "id TEXT PRIMARY KEY, " +
+                "name TEXT PRIMARY KEY, " +
                 "day1 TEXT, " +
                 "day2 TEXT, " +
                 "day3 TEXT, " +
@@ -62,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("password", password);
 
         long result = db.insert("users", null, contentValues);
+
         return result != -1;
     }
 
@@ -124,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 myDB.close();
             }
         }
+
         return users;
     }
 
@@ -219,31 +221,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         if (cursor != null) {
-            cursor.close();
         }
-
         return notifications;
     }
 
-    // Insert day record
-    public boolean insertDay(String id, String day1, String day2, String day3, String day4, String day5, String day6, String day7) {
+    public boolean insertDay(ArrayList<String> days, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("id", id);
-        contentValues.put("day1", day1);
-        contentValues.put("day2", day2);
-        contentValues.put("day3", day3);
-        contentValues.put("day4", day4);
-        contentValues.put("day5", day5);
-        contentValues.put("day6", day6);
-        contentValues.put("day7", day7);
+        try {
 
-        long result = db.insert("days", null, contentValues);
-        return result != -1;
+            contentValues.put("name", name);
+            contentValues.put("day1", days.get(0));
+            contentValues.put("day2", days.get(1));
+            contentValues.put("day3", days.get(2));
+            contentValues.put("day4", days.get(3));
+            contentValues.put("day5", days.get(4));
+            contentValues.put("day6", days.get(5));
+            contentValues.put("day7", days.get(6));
+
+            long result = db.insert("days", null, contentValues);
+            return result != -1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.close();
+        }
     }
 
-    // Update day record
+
     public boolean updateDay(String id, String day1, String day2, String day3, String day4, String day5, String day6, String day7) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -260,14 +267,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
 
-    // Delete day record
     public boolean deleteDay(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsDeleted = db.delete("days", "id = ?", new String[]{id});
         return rowsDeleted > 0;
     }
 
-    // Get all days for a notification
     public ArrayList<String[]> getDays(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<String[]> daysList = new ArrayList<>();
@@ -287,9 +292,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         if (cursor != null) {
-            cursor.close();
         }
-
         return daysList;
     }
 

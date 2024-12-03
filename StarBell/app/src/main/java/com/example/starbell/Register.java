@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,40 +34,49 @@ public class Register extends Fragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    String user = editUser.getText().toString().trim();
+                    String email = editEmail.getText().toString().trim();
+                    String password = editPass1.getText().toString().trim();
+                    String confirmPassword = editPass2.getText().toString().trim();
 
-                String user = editUser.getText().toString();
-                String email = editEmail.getText().toString();
-                String password = editPass1.getText().toString();
-                String confirmPassword = editPass2.getText().toString();
+                    helper = new DatabaseHelper(view.getContext());
 
-                helper = new DatabaseHelper(view.getContext());
+                    if (user.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                        Toast.makeText(view.getContext(), "Llena todos los campos", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                if (user.equals("") || email.equals("") || password.equals("") || confirmPassword.equals(""))
-                    Toast.makeText(view.getContext(), "llena todos los campos", Toast.LENGTH_SHORT).show();
-                else {
-                    if (password.equals(confirmPassword)) {
-                        Boolean checkUser = helper.checkUser(email);
-                        if (checkUser == false) {
-                            Boolean insert = helper.insertUser(email, user, password);
-                            if (insert == true) {
-                                Toast.makeText(view.getContext(), "INGRESO EXITOSO", Toast.LENGTH_SHORT).show();
-                                MainActivity mainActivity = (MainActivity) getActivity();
-                                mainActivity.setEmail(email);
-                                mainActivity.setMenuEnabled(true);
-                                mainActivity.replaceFragment(new UserPage(email));
+                    if (!password.equals(confirmPassword)) {
+                        Toast.makeText(view.getContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                            } else {
-                                Toast.makeText(view.getContext(), "ingreso fallido", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(view.getContext(), "email ya registrado", Toast.LENGTH_SHORT).show();
+                    Boolean checkUser = helper.checkUser(email);
+                    if (checkUser) {
+                        Toast.makeText(view.getContext(), "El email ya está registrado", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Boolean insert = helper.insertUser(email, user, password);
+                    if (insert) {
+                        Toast.makeText(view.getContext(), "Ingreso exitoso", Toast.LENGTH_SHORT).show();
+                        MainActivity mainActivity = (MainActivity) getActivity();
+                        if (mainActivity != null) {
+                            mainActivity.setEmail(email);
+                            mainActivity.setMenuEnabled(true);
+                            mainActivity.replaceFragment(new UserPage(email));
                         }
                     } else {
-                        Toast.makeText(view.getContext(), "contrasena incorrecta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(view.getContext(), "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
                     }
+                } catch (Exception e) {
+                    Log.e("UserRegistration", "Error en el registro: " + e.getMessage(), e);
+                    Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
         btn2 = (Button) view.findViewById(R.id.btn2);
         btn2.setOnClickListener(new View.OnClickListener() {

@@ -1,32 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Principal">
+    android:background="#121212">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#2E2E2E"
+        android:layout_margin="20dp"
+        android:elevation="10dp"
+        android:clipToOutline="true"
+        android:backgroundTintMode="add">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="primera vez?" />
+            android:text="BIENVENIDO"
+            android:textSize="28sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-black"
+            android:shadowColor="#FF5733"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TU PRIMERA VEZ AQUI?"
+            android:textSize="16sp"
+            android:textColor="#AFAFAF"
+            android:fontFamily="sans-serif"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp" />
 
         <Button
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registrarse" />
+            android:text="REGISTRARSE"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:fontFamily="sans-serif-medium"
+            android:backgroundTint="#FF5733"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:elevation="5dp" />
 
         <Button
             android:id="@+id/logIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entrar" />
+            android:text="INICIAR SESION"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:fontFamily="sans-serif-medium"
+            android:backgroundTint="#AA00FF"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center"
+            android:elevation="5dp" />
 
     </LinearLayout>
 
