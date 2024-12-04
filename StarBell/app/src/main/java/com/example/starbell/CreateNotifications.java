@@ -149,6 +149,9 @@ public class CreateNotifications extends Fragment {
 
                     if (insertNotification) {
                         Toast.makeText(getContext(), "CREACIÓN EXITOSA", Toast.LENGTH_SHORT).show();
+                        MainActivity mainActivity = (MainActivity) getActivity();
+                        mainActivity.scheduleNotification(view.getContext());
+
                     } else {
                         Toast.makeText(getContext(), "Creación Fallida", Toast.LENGTH_SHORT).show();
                     }

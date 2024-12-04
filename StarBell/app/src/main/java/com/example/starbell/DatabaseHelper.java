@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String databaseName = "StarBelle.db";
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, databaseName, null, 2);
+        super(context, databaseName, null, 3);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(email) REFERENCES users(email) ON DELETE CASCADE)");
 
         db.execSQL("CREATE TABLE days (" +
-                "name TEXT PRIMARY KEY, " +
+                "id TEXT PRIMARY KEY, " +
                 "day1 TEXT, " +
                 "day2 TEXT, " +
                 "day3 TEXT, " +
@@ -41,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "day5 TEXT, " +
                 "day6 TEXT, " +
                 "day7 TEXT, " +
+                "name TEXT, " +
                 "FOREIGN KEY(name) REFERENCES notifications(name) ON DELETE CASCADE)");
 
     }
@@ -273,23 +274,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsDeleted > 0;
     }
 
-    public ArrayList<String[]> getDays(String id) {
+    public ArrayList<String> getDays(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<String[]> daysList = new ArrayList<>();
+        ArrayList<String> daysList = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM days WHERE id = ?", new String[]{id});
+        Cursor cursor = db.rawQuery("SELECT * FROM days WHERE name = ?", new String[]{name});
         if (cursor != null && cursor.moveToFirst()) {
-            do {
-                String day1 = cursor.getString(cursor.getColumnIndexOrThrow("day1"));
-                String day2 = cursor.getString(cursor.getColumnIndexOrThrow("day2"));
-                String day3 = cursor.getString(cursor.getColumnIndexOrThrow("day3"));
-                String day4 = cursor.getString(cursor.getColumnIndexOrThrow("day4"));
-                String day5 = cursor.getString(cursor.getColumnIndexOrThrow("day5"));
-                String day6 = cursor.getString(cursor.getColumnIndexOrThrow("day6"));
-                String day7 = cursor.getString(cursor.getColumnIndexOrThrow("day7"));
+            String day1 = cursor.getString(cursor.getColumnIndexOrThrow("day1"));
+            String day2 = cursor.getString(cursor.getColumnIndexOrThrow("day2"));
+            String day3 = cursor.getString(cursor.getColumnIndexOrThrow("day3"));
+            String day4 = cursor.getString(cursor.getColumnIndexOrThrow("day4"));
+            String day5 = cursor.getString(cursor.getColumnIndexOrThrow("day5"));
+            String day6 = cursor.getString(cursor.getColumnIndexOrThrow("day6"));
+            String day7 = cursor.getString(cursor.getColumnIndexOrThrow("day7"));
 
-                daysList.add(new String[]{day1, day2, day3, day4, day5, day6, day7});
-            } while (cursor.moveToNext());
+            daysList.add(day1);
+            daysList.add(day2);
+            daysList.add(day3);
+            daysList.add(day4);
+            daysList.add(day5);
+            daysList.add(day6);
+            daysList.add(day7);
+
         }
         if (cursor != null) {
         }

@@ -1,6 +1,7 @@
 package com.example.starbell;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,9 @@ public class AdapterNoti extends BaseAdapter {
             holder.text2 = view.findViewById(R.id.notiName);
             holder.text3 = view.findViewById(R.id.notiDescription);
             holder.text4 = view.findViewById(R.id.notiTime);
-            holder.btn1 = view.findViewById(R.id.btn1);
+            holder.text5 = view.findViewById(R.id.notiDays);
             holder.btn2 = view.findViewById(R.id.btn2);
+            holder.btn3 = view.findViewById(R.id.btn3);
 
             view.setTag(holder);
         } else {
@@ -70,6 +72,27 @@ public class AdapterNoti extends BaseAdapter {
         helper = new DatabaseHelper(view.getContext());
         String name = noti.getName();
 
+        ArrayList<String> days = helper.getDays(noti.getName());
+
+        StringBuilder builder = new StringBuilder();
+
+        for (String day : days) {
+            if (days.isEmpty()) {
+                builder.append(" ");
+            } else {
+                builder.append(day);
+                builder.append(" ");
+            }
+        }
+
+        if (builder.length() > 0) {
+            builder.setLength(builder.length() - 2);
+        }
+
+        String result = builder.toString();
+
+        holder.text5.setText("Días: " + result);
+
         holder.btn2.setOnClickListener(v -> {
             if (helper.deleteNotification(name)){
                 Toast.makeText(context, "notificacion eliminada " , Toast.LENGTH_SHORT).show();
@@ -81,8 +104,28 @@ public class AdapterNoti extends BaseAdapter {
 
         });
 
-        holder.btn1.setOnClickListener(v -> {
-            Toast.makeText(context, "edicion chida",  Toast.LENGTH_SHORT).show();
+        holder.btn3.setOnClickListener(v -> {
+
+            if (holder.btn3.getText().equals("DESACTIVAR")){
+                Toast.makeText(context, "DESACTIVADO",  Toast.LENGTH_SHORT).show();
+                holder.btn3.setText("ACTIVAR");
+                holder.btn3.setBackgroundColor(Color.RED);
+                if (context instanceof MainActivity) {
+                    MainActivity mainActivity = (MainActivity) context;
+
+                    mainActivity.cancelNotification(context);
+                }
+            } else {
+                Toast.makeText(context, "ACTIVADO",  Toast.LENGTH_SHORT).show();
+                holder.btn3.setText("DESACTIVAR");
+                holder.btn3.setBackgroundColor(Color.BLUE);
+                if (context instanceof MainActivity) {
+                    MainActivity mainActivity = (MainActivity) context;
+
+                    mainActivity.scheduleNotification(context);
+                }
+            }
+
         });
 
         return view;
@@ -93,7 +136,8 @@ public class AdapterNoti extends BaseAdapter {
         TextView text2;
         TextView text3;
         TextView text4;
-        Button btn1;
+        TextView text5;
         Button btn2;
+        Button btn3;
     }
 }
